@@ -23,6 +23,7 @@ public class Chat extends MiniPlugin {
 
     @EventHandler
     public void onChatted(AsyncPlayerChatEvent event) {
+        //TODO: Also maybe make a preference for staff to disable chat while they're vanished?
         event.setCancelled(true);
         String username = clientManager.Get(event.getPlayer()).getUsername();
         String prefix = clientManager.Get(event.getPlayer()).getRank().getPrefixForChat();

@@ -10,7 +10,7 @@ public enum PermissionGroup {
     // Content Creator Ranks
     YOUTUBE("YouTube", "youtube", ChatColor.RED, 17),
     TWITCH("Twitch", "twitch", ChatColor.DARK_PURPLE, 17),
-    EVENT("Event", "event", ChatColor.WHITE, 17),
+    EVENT("Event Host", "event", ChatColor.WHITE, 17),
 
     // Staff Ranks
 
@@ -39,11 +39,12 @@ public enum PermissionGroup {
         this.permissionLevel = permissionLevel;
     }
 
-    PermissionGroup(String name, String prefix, ChatColor color) {
-        this.name = name;
-        this.prefix = prefix;
-        this.color = color;
-    }
+    // maybe i dont need this??
+//    PermissionGroup(String name, String prefix, ChatColor color) {
+//        this.name = name;
+//        this.prefix = prefix;
+//        this.color = color;
+//    }
 
     public String getName() {
         return name;
