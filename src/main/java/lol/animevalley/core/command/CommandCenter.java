@@ -1,0 +1,57 @@
+package lol.animevalley.core.command;
+
+import lol.animevalley.core.account.CoreClient;
+import lol.animevalley.core.account.CoreClientManager;
+import lol.animevalley.core.common.CloudCommand;
+import lol.animevalley.core.MiniPlugin;
+import lol.animevalley.core.util.StringUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class CommandCenter extends MiniPlugin {
+
+    private CoreClientManager clientManager;
+    private List<CloudCommand> _Commands = new ArrayList<>();
+
+    public CommandCenter(CoreClientManager clientManager) {
+        super("Command Center");
+        this.clientManager = clientManager;
+    }
+
+    @Override
+    public void Startup() {
+    }
+
+    public void addCommand(CloudCommand command) {
+        _Commands.add(command);
+        //Bukkit.getLogger().info(ChatColor.BLUE + "Command Center> " + ChatColor.GRAY + "Registered /" + command.getExecutors()[0]);
+        say ("Registered /" + command.getExecutors()[0]);
+    }
+
+    @EventHandler
+    public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+        // Figure out if the command is one of ours
+        //Bukkit.getLogger().info("Debug> " + event.getMessage());
+        for(CloudCommand cmd : _Commands) {
+            for(String alias : cmd.getExecutors()) {
+                if(event.getMessage().startsWith("/" + alias)) {
+                    // Check if the user has access to this rank
+                    CoreClient client = clientManager.Get(event.getPlayer());
+                    if(client.getRank().Has(cmd.getGroup())) {
+                        String[] moddedArray = Arrays.copyOfRange(StringUtils.toArray(event.getMessage()), 1, StringUtils.toArray(event.getMessage()).length);
+                        cmd.Execute(event.getPlayer(), moddedArray);
+                    } else {
+                        event.getPlayer().sendMessage("§cThis requires permission rank [§6" + cmd.getGroup().toString() + "§c]!");
+                    }
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+}

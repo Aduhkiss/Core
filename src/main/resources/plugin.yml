@@ -1,0 +1,7 @@
+name: Core
+version: '${project.version}'
+main: lol.animevalley.core.Core
+api-version: 1.19
+authors: [ Aduhkiss ]
+description: Core plugin for our server
+website: thecloudyco.com
