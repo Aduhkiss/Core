@@ -6,6 +6,7 @@ import lol.animevalley.core.command.CommandCenter;
 import lol.animevalley.core.admin.AdminCore;
 import lol.animevalley.core.database.Database;
 import lol.animevalley.core.essentials.Essentials;
+import lol.animevalley.core.punish.Punish;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Core extends JavaPlugin {
@@ -23,6 +24,7 @@ public final class Core extends JavaPlugin {
         new AdminCore(commandCenter, clientManager);
         new Chat(clientManager);
         new Essentials(commandCenter);
+        new Punish(commandCenter, database);
     }
 
     @Override
