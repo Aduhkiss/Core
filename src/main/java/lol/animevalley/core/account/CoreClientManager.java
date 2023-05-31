@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -58,7 +59,7 @@ public class CoreClientManager extends MiniPlugin {
         database.update("UPDATE `accounts` SET `rank` = '" + group.toString() + "' WHERE `uuid` = '" + player.getUniqueId() + "';");
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerConnect(PlayerJoinEvent event) {
         // Make sure that we run it async that way logging players in, doesnt lag the main thread lol
         new BukkitRunnable() {
