@@ -16,11 +16,6 @@ public class Chat extends MiniPlugin {
         this.clientManager = clientManager;
     }
 
-    @Override
-    public void Startup() {
-
-    }
-
     @EventHandler
     public void onChatted(AsyncPlayerChatEvent event) {
         //TODO: Also maybe make a preference for staff to disable chat while they're vanished?

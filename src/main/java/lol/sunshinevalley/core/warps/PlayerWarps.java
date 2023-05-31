@@ -8,7 +8,4 @@ public class PlayerWarps extends MiniPlugin {
         super("Player Warps");
     }
 
-    @Override
-    public void Startup() {
-    }
 }

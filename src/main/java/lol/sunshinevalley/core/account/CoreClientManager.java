@@ -29,10 +29,6 @@ public class CoreClientManager extends MiniPlugin {
 
     private Map<Player, CoreClient> _CoreClients = new HashMap<>();
 
-    @Override
-    public void Startup() {
-    }
-
     // Use this to get a CoreClient object from Bukkit player
     public CoreClient Get(Player player) {
         return _CoreClients.get(player);

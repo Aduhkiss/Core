@@ -7,7 +7,4 @@ public class CustomerSupport extends MiniPlugin {
     public CustomerSupport() {
         super("Customer Support");
     }
-
-    @Override
-    public void Startup() {}
 }

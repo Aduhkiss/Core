@@ -22,10 +22,6 @@ public class CommandCenter extends MiniPlugin {
         this.clientManager = clientManager;
     }
 
-    @Override
-    public void Startup() {
-    }
-
     public void addCommand(CloudCommand command) {
         _Commands.add(command);
         //Bukkit.getLogger().info(ChatColor.BLUE + "Command Center> " + ChatColor.GRAY + "Registered /" + command.getExecutors()[0]);

@@ -24,9 +24,4 @@ public class Punish extends MiniPlugin {
         commandCenter.addCommand(new TempMuteCommand());
         commandCenter.addCommand(new WarnCommand());
     }
-
-    @Override
-    public void Startup() {
-
-    }
 }

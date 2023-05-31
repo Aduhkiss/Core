@@ -40,10 +40,6 @@ public class AdminCore extends MiniPlugin {
         commandCenter.addCommand(new VanishCommand(this));
     }
 
-    @Override
-    public void Startup() {
-    }
-
     public void vanish(Player admin) {
         _VanishedPlayers.add(admin);
         for(Player pl : Bukkit.getOnlinePlayers()) {

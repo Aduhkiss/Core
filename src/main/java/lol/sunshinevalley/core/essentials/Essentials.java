@@ -14,9 +14,4 @@ public class Essentials extends MiniPlugin {
 
         commandCenter.addCommand(new TeleportCommand());
     }
-
-    @Override
-    public void Startup() {
-
-    }
 }
