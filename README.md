@@ -11,3 +11,5 @@ We use a ton of custom elements, such as the command system, permission system, 
 is designed to handle all components of a Minecraft Server.
 
 Please contact me for any questions or concerns.
+
+The config.yml file is where you change things like the website, server same and database login details. dont worry the ones I have in there are not accessable unless your on my network lol
