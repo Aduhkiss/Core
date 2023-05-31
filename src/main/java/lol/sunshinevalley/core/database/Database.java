@@ -1,5 +1,6 @@
 package lol.sunshinevalley.core.database;
 
+import lol.sunshinevalley.core.Core;
 import lol.sunshinevalley.core.MiniPlugin;
 
 import java.sql.Connection;
@@ -14,10 +15,14 @@ public class Database extends MiniPlugin {
     public Database() {
         super("Database");
         // Attempt to connect to the database
+        String host = Core.getCore().getConfig().getString("database.host");
+        String database = Core.getCore().getConfig().getString("database.data");
+        String username = Core.getCore().getConfig().getString("database.username");
+        String password = Core.getCore().getConfig().getString("database.password");
         say("Connecting to the database...");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://10.0.0.114:3306/minecraft","minecraft","8Teh1XO4[.C/*NCl");
+            Class.forName("com.mysql.jdbc.Driver");// TODO: Add a way to change the port at some point in time
+            conn = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database,username,password);
             say("Ready.");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -30,9 +35,5 @@ public class Database extends MiniPlugin {
 
     public int update(String sql) throws SQLException {
         return conn.createStatement().executeUpdate(sql);
-    }
-
-    @Override
-    public void Startup() {
     }
 }

@@ -10,7 +10,7 @@ public abstract class MiniPlugin implements Listener {
     public MiniPlugin(String moduleName) {
         this.moduleName = moduleName;
         Bukkit.getPluginManager().registerEvents(this, Core.getCore());
-        Startup();
+        //Startup();
         Bukkit.getLogger().info(moduleName + "> " + "Loaded.");
     }
 
@@ -18,7 +18,7 @@ public abstract class MiniPlugin implements Listener {
         return moduleName;
     }
 
-    public abstract void Startup();
+    //public abstract void Startup();
 
     public void say(String message) {
         Bukkit.getLogger().info("" + moduleName + "> " + message);

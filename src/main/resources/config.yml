@@ -1,3 +1,9 @@
 serverstatus:
   name: Lobby-1
   website: "www.example.com"
+
+database:
+  host: "10.0.0.114"
+  username: "minecraft"
+  password: "8Teh1XO4[.C/*NCl"
+  data: "minecraft"

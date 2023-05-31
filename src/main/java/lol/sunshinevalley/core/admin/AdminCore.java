@@ -8,26 +8,32 @@ import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.admin.cmd.GameModeCommand;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.database.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.ServerListPingEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminCore extends MiniPlugin {
 
-    private CommandCenter commandCenter;
-    private CoreClientManager clientManager;
+    CommandCenter commandCenter;
+    CoreClientManager clientManager;
+    Database database;
     private List<Player> _VanishedPlayers = new ArrayList<>();
 
-    public AdminCore(CommandCenter commandCenter, CoreClientManager clientManager) {
+    public AdminCore(CommandCenter commandCenter, CoreClientManager clientManager, Database database) {
         super("Admin Commands");
         this.commandCenter = commandCenter;
         this.clientManager = clientManager;
+        this.database = database;
 
         commandCenter.addCommand(new GameModeCommand());
         commandCenter.addCommand(new UpdateRankCommand(clientManager));
@@ -84,8 +90,33 @@ public class AdminCore extends MiniPlugin {
         }
     }
 
+    String line_one = null;
+    String line_two = null;
+    int maxPlayers = 0;
+
     @EventHandler
     public void onPing(ServerListPingEvent event) {
+        String serverName = Core.getCore().getConfig().getString("serverstatus.name");
+        new BukkitRunnable() {
 
+            @Override
+            public void run() {
+                try {
+                    ResultSet pull = database.query("SELECT * FROM `serverlistdata` WHERE `server` = '" + serverName + "';");
+                    while(pull.next()) {
+                        line_one = pull.getString("lineone");
+                        line_two = pull.getString("linetwo");
+                        maxPlayers = pull.getInt("maxplayers");
+                    }
+                } catch (SQLException e) {
+                    // err
+                    line_one = "§cB068   ERR CONNECT TO DATABASE";
+                    line_two = "         ADMIN PLEASE INVESTIGATE.";
+                }
+            }
+        }.runTaskAsynchronously(Core.getCore());
+
+        event.setMotd(line_one + "\n" + line_two);
+        event.setMaxPlayers(maxPlayers);
     }
 }

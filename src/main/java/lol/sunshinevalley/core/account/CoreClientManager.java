@@ -61,6 +61,7 @@ public class CoreClientManager extends MiniPlugin {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void playerConnect(PlayerJoinEvent event) {
+        event.setJoinMessage("§8[§a+§8] §7" + event.getPlayer().getName());
         // Make sure that we run it async that way logging players in, doesnt lag the main thread lol
         new BukkitRunnable() {
             @Override
@@ -101,6 +102,7 @@ public class CoreClientManager extends MiniPlugin {
 
     @EventHandler
     public void playerLeave(PlayerQuitEvent event) {
+        event.setQuitMessage("§8[§c-§8] §7" + event.getPlayer().getName());
         _CoreClients.remove(event.getPlayer());
     }
 }

@@ -22,7 +22,7 @@ public final class Core extends JavaPlugin {
         Database database = new Database();
         CoreClientManager clientManager = new CoreClientManager(database);
         CommandCenter commandCenter = new CommandCenter(clientManager);
-        new AdminCore(commandCenter, clientManager);
+        new AdminCore(commandCenter, clientManager, database);
         new Chat(clientManager);
         new Essentials(commandCenter);
         new Punish(commandCenter, database);

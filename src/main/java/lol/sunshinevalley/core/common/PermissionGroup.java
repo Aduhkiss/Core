@@ -19,7 +19,7 @@ public enum PermissionGroup {
     JNR_MODERATOR("Jr.Mod", "jr.mod", ChatColor.GOLD, 22),
     MODERATOR("Mod", "mod", ChatColor.GOLD, 23),
     SNR_MODERATOR("Sr.Mod", "sr.mod", ChatColor.GOLD, 24),
-    SUPERVISOR("Supervisor", "supervisor", ChatColor.GOLD, 24),
+    //
 
     // Paid-Staff Ranks
     SUPPORT("Support", "support", ChatColor.BLUE, 25),
