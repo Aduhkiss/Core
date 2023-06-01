@@ -3,14 +3,22 @@ package lol.sunshinevalley.core.punish.cmd;
 import lol.sunshinevalley.core.Core;
 import lol.sunshinevalley.core.common.CloudCommand;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.punish.Punish;
+import lol.sunshinevalley.core.punish.Punishment;
+import lol.sunshinevalley.core.punish.PunishmentType;
 import lol.sunshinevalley.core.util.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
+
 public class KickCommand extends CloudCommand {
 
-    public KickCommand() {
+    Punish punish;
+
+    public KickCommand(Punish punish) {
         super(new String[]{"kick"}, PermissionGroup.JNR_MODERATOR);
+        this.punish = punish;
     }
 
     @Override
@@ -28,6 +36,14 @@ public class KickCommand extends CloudCommand {
             }
             if(target == null) {
                 player.sendMessage("§cNo matching player found");
+                return;
+            }
+
+            try {
+                punish.addPunishment(new Punishment(PunishmentType.KICK, player.getName(), target.getUniqueId(), reason, System.currentTimeMillis(), -1));
+            } catch (SQLException e) {
+                e.printStackTrace();
+                player.sendMessage("§cThere was an issue contacting the database. Please contact a developer or admin.");
                 return;
             }
 

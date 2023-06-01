@@ -21,6 +21,10 @@ public class TeleportCommand extends CloudCommand {
         } else {
 
             Player target = Bukkit.getPlayer(args[0]);
+            if(target == null) {
+                player.sendMessage("§cNo player matching that name was found!");
+                return;
+            }
             player.teleport(target);
             player.sendMessage("§7You teleported to §6" + target.getName());
             return;

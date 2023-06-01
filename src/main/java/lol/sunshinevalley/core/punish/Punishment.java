@@ -2,16 +2,18 @@ package lol.sunshinevalley.core.punish;
 
 import org.bukkit.OfflinePlayer;
 
+import java.util.UUID;
+
 public class Punishment {
 
     private PunishmentType type;
     private String caller;
-    private OfflinePlayer target;
+    private UUID target;
     private String reason;
     private long timestamp;
     private long expires;
 
-    public Punishment(PunishmentType type, String caller, OfflinePlayer target, String reason, long timestamp, long expires) {
+    public Punishment(PunishmentType type, String caller, UUID target, String reason, long timestamp, long expires) {
         this.type = type;
         this.caller = caller;
         this.target = target;
@@ -28,7 +30,7 @@ public class Punishment {
         return caller;
     }
 
-    public OfflinePlayer getTarget() {
+    public UUID getTarget() {
         return target;
     }
 

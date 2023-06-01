@@ -28,9 +28,10 @@ public final class Core extends JavaPlugin {
         CoreClientManager clientManager = new CoreClientManager(database);
         CommandCenter commandCenter = new CommandCenter(clientManager);
         new AdminCore(commandCenter, clientManager, database);
-        new Chat(clientManager);
-        new Essentials(commandCenter);
-        new Punish(commandCenter, database);
+        new Chat(clientManager, commandCenter);
+        // :( we cant have these finished in time...
+        //new Essentials(commandCenter);
+        //new Punish(commandCenter, database, clientManager);
         new PlayerWarps(database, commandCenter);
 
         long now = System.currentTimeMillis();
