@@ -92,13 +92,21 @@ public class AdminCore extends MiniPlugin {
 
     @EventHandler
     public void onPing(ServerListPingEvent event) {
+        //TODO: Move this into a new system that way we dont contact the database every time someone pings the server? Might cause stress on it
         String serverName = Core.getCore().getConfig().getString("serverstatus.name");
+        updateMOTD(serverName);
+
+        event.setMotd(line_one + "\n" + line_two);
+        event.setMaxPlayers(maxPlayers);
+    }
+
+    public void updateMOTD(String server) {
         new BukkitRunnable() {
 
             @Override
             public void run() {
                 try {
-                    ResultSet pull = database.query("SELECT * FROM `serverlistdata` WHERE `server` = '" + serverName + "';");
+                    ResultSet pull = database.query("SELECT * FROM `serverlistdata` WHERE `server` = '" + server + "';");
                     while(pull.next()) {
                         line_one = pull.getString("lineone");
                         line_two = pull.getString("linetwo");
@@ -111,8 +119,5 @@ public class AdminCore extends MiniPlugin {
                 }
             }
         }.runTaskAsynchronously(Core.getCore());
-
-        event.setMotd(line_one + "\n" + line_two);
-        event.setMaxPlayers(maxPlayers);
     }
 }
