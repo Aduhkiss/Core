@@ -8,7 +8,10 @@ import lol.sunshinevalley.core.database.Database;
 import lol.sunshinevalley.core.essentials.Essentials;
 import lol.sunshinevalley.core.punish.Punish;
 import lol.sunshinevalley.core.warps.PlayerWarps;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.concurrent.TimeUnit;
 
 public final class Core extends JavaPlugin {
 
@@ -16,6 +19,7 @@ public final class Core extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long enable = System.currentTimeMillis();
         // Plugin startup logic
         core = this;
         saveDefaultConfig();
@@ -28,6 +32,9 @@ public final class Core extends JavaPlugin {
         new Essentials(commandCenter);
         new Punish(commandCenter, database);
         new PlayerWarps(database, commandCenter);
+
+        long now = System.currentTimeMillis();
+        Bukkit.getLogger().info("The Cloudy Co> " + "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load.");
     }
 
     @Override
