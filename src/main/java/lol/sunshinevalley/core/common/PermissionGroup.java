@@ -6,6 +6,8 @@ public enum PermissionGroup {
     // Default Player Rank
     PLAYER("No Rank", "", ChatColor.WHITE, 0),
     // Donator Ranks
+    PLUS("Plus", "plus", ChatColor.AQUA, 1),
+    PREMIUM("Premium", "premium", ChatColor.LIGHT_PURPLE, 2),
 
     // Content Creator Ranks
     YOUTUBE("YouTube", "youtube", ChatColor.RED, 17),
