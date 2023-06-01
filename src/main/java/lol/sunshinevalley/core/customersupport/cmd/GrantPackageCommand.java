@@ -5,11 +5,10 @@ import lol.sunshinevalley.core.common.PermissionGroup;
 import lol.sunshinevalley.core.customersupport.CustomerSupport;
 import org.bukkit.entity.Player;
 
-public class HasCommand extends CloudCommand {
-
+public class GrantPackageCommand extends CloudCommand {
     CustomerSupport support;
-    public HasCommand(CustomerSupport support) {
-        super(new String[]{"has", "haspackage"}, PermissionGroup.SUPPORT);
+    public GrantPackageCommand(CustomerSupport support) {
+        super(new String[]{"grant", "grantpackage"}, PermissionGroup.SUPPORT);
         this.support = support;
     }
 

@@ -47,7 +47,7 @@ public class Chat extends MiniPlugin {
             CoreClient coreClient = clientManager.Get(pl);
             if(coreClient.getRank().Has(PermissionGroup.JNR_MODERATOR)) {
 //                if(caller.getName().equals(pl.getName())) {
-//                    // If you are the same person as the one who sent the message
+//                    / / If you are the same person as the one who sent the message
 //                }
                 pl.sendMessage(callerClient.getRank().getColor() + callerClient.getRank().getName() + " §6" + caller.getName() + " §d" + message);
                 pl.playSound(pl.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 20f, 4f);

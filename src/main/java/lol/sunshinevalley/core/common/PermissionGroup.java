@@ -26,7 +26,7 @@ public enum PermissionGroup {
     // Paid-Staff Ranks
     SUPPORT("Support", "support", ChatColor.BLUE, 25),
     ADMIN("Admin", "admin", ChatColor.DARK_RED, 26),
-    DEVELOPER("Developer", "Dev", ChatColor.GOLD, 27),
+    DEVELOPER("Developer", "dev", ChatColor.GOLD, 27),
     MANAGER("Manager", "manager", ChatColor.DARK_RED, 30),
     OWNER("Owner", "owner", ChatColor.DARK_RED, 100);
 
