@@ -7,6 +7,7 @@ import lol.sunshinevalley.core.admin.AdminCore;
 import lol.sunshinevalley.core.database.Database;
 import lol.sunshinevalley.core.essentials.Essentials;
 import lol.sunshinevalley.core.punish.Punish;
+import lol.sunshinevalley.core.warps.PlayerWarps;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Core extends JavaPlugin {
@@ -26,12 +27,15 @@ public final class Core extends JavaPlugin {
         new Chat(clientManager);
         new Essentials(commandCenter);
         new Punish(commandCenter, database);
+        new PlayerWarps(database, commandCenter);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         core = null;
+
+        //TODO: Plugin messaging for bungeecord servers to send all players off this server when it shuts down, that way they dont have to reconnect
     }
 
     public static Core getCore() {

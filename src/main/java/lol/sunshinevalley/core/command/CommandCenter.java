@@ -25,7 +25,7 @@ public class CommandCenter extends MiniPlugin {
     public void addCommand(CloudCommand command) {
         _Commands.add(command);
         //Bukkit.getLogger().info(ChatColor.BLUE + "Command Center> " + ChatColor.GRAY + "Registered /" + command.getExecutors()[0]);
-        say ("Registered /" + command.getExecutors()[0]);
+        say("Registered /" + command.getExecutors()[0]);
     }
 
     @EventHandler
@@ -41,7 +41,7 @@ public class CommandCenter extends MiniPlugin {
                         String[] moddedArray = Arrays.copyOfRange(StringUtils.toArray(event.getMessage()), 1, StringUtils.toArray(event.getMessage()).length);
                         cmd.Execute(event.getPlayer(), moddedArray);
                     } else {
-                        event.getPlayer().sendMessage("§cThis requires permission rank [§6" + cmd.getGroup().toString() + "§c]!");
+                        event.getPlayer().sendMessage("§7This requires permission rank [§9" + cmd.getGroup().toString() + "§7]!");
                     }
                     event.setCancelled(true);
                 }
