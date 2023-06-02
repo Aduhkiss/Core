@@ -13,9 +13,9 @@ This is where I will log anything that I need to do, or ideas that I have will g
 
 ----------------------------------------------
 * Server Security System
-* Customer Support System
 * Package Manager
 
 ### Completed Projects
 
 ----------------------------------------------
+* Customer Support System
