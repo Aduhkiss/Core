@@ -34,7 +34,7 @@ public final class Core extends JavaPlugin {
         //new Essentials(commandCenter);
         //new Punish(commandCenter, database, clientManager);
         new PlayerWarps(database, commandCenter);
-        new CustomerSupport(commandCenter, clientManager);
+        new CustomerSupport(commandCenter, clientManager, database);
 
         long now = System.currentTimeMillis();
         Bukkit.getLogger().info("The Cloudy Co> " + "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load.");

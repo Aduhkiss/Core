@@ -3,7 +3,10 @@ package lol.sunshinevalley.core.customersupport.repo;
 
 import lol.sunshinevalley.core.customersupport.PackageType;
 import lol.sunshinevalley.core.customersupport.Packages;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import java.util.UUID;
 
 public class DBPackage {
     /*
@@ -18,6 +21,11 @@ public class DBPackage {
         this.packageType = packageType;
         this.packageName = packageName;
         this.target = target;
+    }
+    public DBPackage(PackageType packageType, Packages packageName, String uuid) {
+        this.packageType = packageType;
+        this.packageName = packageName;
+        this.target = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
     }
 
     public PackageType getPackageType() {

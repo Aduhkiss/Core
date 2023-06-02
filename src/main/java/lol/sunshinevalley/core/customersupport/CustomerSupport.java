@@ -4,14 +4,19 @@ import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.account.CoreClientManager;
 import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.customersupport.cmd.CheckCommand;
 import lol.sunshinevalley.core.customersupport.cmd.GrantPackageCommand;
 import lol.sunshinevalley.core.customersupport.cmd.HasCommand;
+import lol.sunshinevalley.core.customersupport.repo.DBPackage;
 import lol.sunshinevalley.core.database.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerSupport extends MiniPlugin {
 
@@ -26,6 +31,7 @@ public class CustomerSupport extends MiniPlugin {
 
         commandCenter.addCommand(new HasCommand(this));
         commandCenter.addCommand(new GrantPackageCommand(this));
+        commandCenter.addCommand(new CheckCommand(this, clientManager));
     }
 
     //TOOD: Add support for a discord server / discord bot
@@ -65,5 +71,14 @@ public class CustomerSupport extends MiniPlugin {
         }
         // Toss it into the database to track customer packages
         database.update("INSERT INTO `packages` (`package_type`, `package_name`, `target_uuid`) VALUES ('" + pack.getType().getPackageType().toString() + "', '" + pack.getType().toString() + "', '" + target.getUniqueId() + "');");
+    }
+
+    public List<DBPackage> getPurchasedPackages(OfflinePlayer player) throws SQLException {
+        ResultSet result = database.query("SELECT * FROM `packages` WHERE `target_uuid` = '" + player.getUniqueId() + "';");
+        List<DBPackage> packs = new ArrayList<>();
+        while(result.next()) {
+            packs.add(new DBPackage(PackageType.valueOf(result.getString("package_type")), Packages.valueOf(result.getString("package_name")), result.getString("target_uuid")));
+        }
+        return packs;
     }
 }
