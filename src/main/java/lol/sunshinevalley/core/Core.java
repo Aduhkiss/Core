@@ -6,8 +6,7 @@ import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.admin.AdminCore;
 import lol.sunshinevalley.core.customersupport.CustomerSupport;
 import lol.sunshinevalley.core.database.Database;
-import lol.sunshinevalley.core.essentials.Essentials;
-import lol.sunshinevalley.core.punish.Punish;
+import lol.sunshinevalley.core.scoreboard.Scoreboard;
 import lol.sunshinevalley.core.warps.PlayerWarps;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +34,7 @@ public final class Core extends JavaPlugin {
         //new Punish(commandCenter, database, clientManager);
         new PlayerWarps(database, commandCenter);
         new CustomerSupport(commandCenter, clientManager, database);
+        new Scoreboard(clientManager);
 
         long now = System.currentTimeMillis();
         Bukkit.getLogger().info("The Cloudy Co> " + "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load.");
