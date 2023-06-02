@@ -81,4 +81,14 @@ public class CustomerSupport extends MiniPlugin {
         }
         return packs;
     }
+
+    public boolean hasPackage(OfflinePlayer player, Packages packag) throws SQLException {
+        boolean f = false;
+        for(DBPackage pa : getPurchasedPackages(player)) {
+            if(pa.getPackageName() == packag) {
+                f = true;
+            }
+        }
+        return f;
+    }
 }

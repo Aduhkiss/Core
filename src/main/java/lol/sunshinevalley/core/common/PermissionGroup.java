@@ -25,6 +25,8 @@ public enum PermissionGroup {
 
     // Paid-Staff Ranks
     SUPPORT("Support", "support", ChatColor.BLUE, 25),
+    // Support Admin - Basically the same rank as a full Admin, but with the SUPPORT tag
+    SUPPORT_ADMIN("Support Admin", "support", ChatColor.BLUE, 26),
     ADMIN("Admin", "admin", ChatColor.DARK_RED, 26),
     DEVELOPER("Developer", "dev", ChatColor.GOLD, 27),
     MANAGER("Manager", "manager", ChatColor.DARK_RED, 30),
