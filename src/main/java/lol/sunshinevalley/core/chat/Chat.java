@@ -4,6 +4,7 @@ import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.account.CoreClient;
 import lol.sunshinevalley.core.account.CoreClientManager;
 import lol.sunshinevalley.core.chat.cmd.AdminChatCommand;
+import lol.sunshinevalley.core.chat.cmd.AnnounceCommand;
 import lol.sunshinevalley.core.chat.cmd.BroadcastCommand;
 import lol.sunshinevalley.core.chat.cmd.MessageAdminCommand;
 import lol.sunshinevalley.core.command.CommandCenter;
@@ -24,6 +25,7 @@ public class Chat extends MiniPlugin {
         commandCenter.addCommand(new BroadcastCommand());
         commandCenter.addCommand(new AdminChatCommand(this));
         commandCenter.addCommand(new MessageAdminCommand(this));
+        commandCenter.addCommand(new AnnounceCommand());
     }
 
     @EventHandler
@@ -32,10 +34,14 @@ public class Chat extends MiniPlugin {
         event.setCancelled(true);
         String username = clientManager.Get(event.getPlayer()).getUsername();
         String prefix = clientManager.Get(event.getPlayer()).getRank().getPrefixForChat();
-        String message = BasicFilter.filterMessage(event.getMessage());
+        // Disable our chat filter lmao
+        String message = event.getMessage();
+        //String message = BasicFilter.filterMessage(event.getMessage());
 
         for(Player pl : Bukkit.getOnlinePlayers()) {
-            pl.sendMessage(prefix + " §e" + username + "§f: " + message);
+            //pl.sendMessage(prefix + " §e" + username + "§f: " + message);
+            // Remove prefixes from chat as they're unneeded
+            pl.sendMessage("<" + "§f" + username + "> " + message);
         }
 
         return;

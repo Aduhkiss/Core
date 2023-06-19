@@ -14,14 +14,14 @@ public class HasCommand extends CloudCommand {
 
     CustomerSupport support;
     public HasCommand(CustomerSupport support) {
-        super(new String[]{"has", "haspackage"}, PermissionGroup.SUPPORT);
+        super(new String[]{"has", "haspackage"}, "Check if an account owns a certain package", PermissionGroup.SUPPORT);
         this.support = support;
     }
 
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length != 2) {
-            player.sendMessage("§9/has <OfflinePlayer> <Package> §7Check if an account owns a certain package §9" + getGroup().getName());
+            sendHelp(player);
         } else {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
             Packages pack = null;

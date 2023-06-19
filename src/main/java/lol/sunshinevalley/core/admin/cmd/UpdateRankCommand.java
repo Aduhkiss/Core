@@ -16,7 +16,7 @@ public class UpdateRankCommand extends CloudCommand {
     private CoreClientManager clientManager;
 
     public UpdateRankCommand(CoreClientManager clientManager) {
-        super(new String[]{"updaterank", "rank"}, PermissionGroup.ADMIN);
+        super(new String[]{"updaterank", "rank"}, "Update a players rank on the network", PermissionGroup.ADMIN);
         this.clientManager = clientManager;
     }
 
@@ -25,7 +25,7 @@ public class UpdateRankCommand extends CloudCommand {
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length != 2) {
-            player.sendMessage("§7/updaterank joeschmo MODERATOR");
+            sendHelp(player);
         } else {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
             //PermissionGroup rank = PermissionGroup.valueOf(args[1]);

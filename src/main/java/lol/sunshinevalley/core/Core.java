@@ -1,13 +1,13 @@
 package lol.sunshinevalley.core;
 
 import lol.sunshinevalley.core.account.CoreClientManager;
+import lol.sunshinevalley.core.anarchy.AnarchyCore;
 import lol.sunshinevalley.core.chat.Chat;
 import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.admin.AdminCore;
 import lol.sunshinevalley.core.customersupport.CustomerSupport;
 import lol.sunshinevalley.core.database.Database;
-import lol.sunshinevalley.core.scoreboard.Scoreboard;
-import lol.sunshinevalley.core.warps.PlayerWarps;
+import lol.sunshinevalley.core.disguise.Disguise;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,12 +29,10 @@ public final class Core extends JavaPlugin {
         CommandCenter commandCenter = new CommandCenter(clientManager);
         new AdminCore(commandCenter, clientManager, database);
         new Chat(clientManager, commandCenter);
-        // :( we cant have these finished in time...
-        //new Essentials(commandCenter);
-        //new Punish(commandCenter, database, clientManager);
-        new PlayerWarps(database, commandCenter);
         new CustomerSupport(commandCenter, clientManager, database);
-        new Scoreboard(clientManager);
+
+        new AnarchyCore(clientManager, commandCenter);
+        new Disguise(commandCenter, clientManager);
 
         long now = System.currentTimeMillis();
         Bukkit.getLogger().info("The Cloudy Co> " + "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load.");

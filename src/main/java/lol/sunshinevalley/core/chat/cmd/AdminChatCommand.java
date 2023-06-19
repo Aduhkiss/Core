@@ -11,7 +11,7 @@ public class AdminChatCommand extends CloudCommand {
     Chat chat;
 
     public AdminChatCommand(Chat chat) {
-        super(new String[]{"admin", "helpop", "ao"}, PermissionGroup.PLAYER);
+        super(new String[]{"admin", "helpop", "ao"}, "Post a message in admin only chat", PermissionGroup.PLAYER);
         this.chat = chat;
     }
 

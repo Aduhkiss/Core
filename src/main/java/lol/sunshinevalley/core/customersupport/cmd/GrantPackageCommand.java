@@ -16,14 +16,14 @@ import java.sql.SQLException;
 public class GrantPackageCommand extends CloudCommand {
     CustomerSupport support;
     public GrantPackageCommand(CustomerSupport support) {
-        super(new String[]{"grant", "grantpackage"}, PermissionGroup.SUPPORT);
+        super(new String[]{"grant", "grantpackage"}, "Add a package to an account", PermissionGroup.SUPPORT);
         this.support = support;
     }
 
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length != 2) {
-            player.sendMessage("§9/grant <OfflinePlayer> <Package> §7Add a package to an account §9" + getGroup().getName());
+            sendHelp(player);
         } else {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
             Packages pack = null;

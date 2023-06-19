@@ -10,7 +10,7 @@ public class VanishCommand extends CloudCommand {
     AdminCore adminCore;
 
     public VanishCommand(AdminCore adminCore) {
-        super(new String[]{"vanish", "v", "incognito"}, PermissionGroup.MODERATOR);
+        super(new String[]{"vanish", "v", "incognito"}, "Appear offline for normal users", PermissionGroup.MODERATOR);
         this.adminCore = adminCore;
     }
 

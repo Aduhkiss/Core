@@ -56,12 +56,24 @@
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
+            <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>minecraft-repo</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
+        <repository>
+            <id>public</id>
+            <url>https://haoshoku.xyz:1234/repository/public/</url>
         </repository>
     </repositories>
 
@@ -79,9 +91,10 @@
             <version>8.0.33</version>
         </dependency>
         <dependency>
-            <groupId>fr.mrmicky</groupId>
-            <artifactId>fastboard</artifactId>
-            <version>1.2.1</version>
+            <groupId>xyz.haoshoku.nick</groupId>
+            <artifactId>nickapi</artifactId>
+            <version>6.3.3-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

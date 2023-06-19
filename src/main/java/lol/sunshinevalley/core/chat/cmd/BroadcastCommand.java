@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
 public class BroadcastCommand extends CloudCommand {
 
     public BroadcastCommand() {
-        super(new String[]{"ss"}, PermissionGroup.SNR_MODERATOR);
+        super(new String[]{"ss"}, "Broadcast your message to the whole server", PermissionGroup.SNR_MODERATOR);
     }
 
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length == 0) {
-            player.sendMessage("§6/ss <Message> §7Broadcast your message to the whole server §6" + getGroup().getName());
+            sendHelp(player);
         } else {
             String message = StringUtils.combine(args, 0);
             for(Player pl : Bukkit.getOnlinePlayers()) {

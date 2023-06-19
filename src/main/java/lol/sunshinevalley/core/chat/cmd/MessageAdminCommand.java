@@ -12,7 +12,7 @@ public class MessageAdminCommand extends CloudCommand {
     Chat chat;
 
     public MessageAdminCommand(Chat chat) {
-        super(new String[]{"messageadmin", "ma"}, PermissionGroup.JNR_MODERATOR);
+        super(new String[]{"messageadmin", "ma"}, "Privately reply to an admin only message", PermissionGroup.JNR_MODERATOR);
         this.chat = chat;
     }
 

@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CoreClientManager extends MiniPlugin {
-
     private Database database;
+    private Map<String, Player> _DisguisedPlayers = new HashMap<>();
 
     public CoreClientManager(Database database) {
         super("Client Manager");
@@ -100,5 +100,23 @@ public class CoreClientManager extends MiniPlugin {
     public void playerLeave(PlayerQuitEvent event) {
         event.setQuitMessage("§8[§c-§8] §7" + event.getPlayer().getName());
         _CoreClients.remove(event.getPlayer());
+        // Make sure to also remove their entry from _DisguisedPlayers as well when they leave!!!
+        _DisguisedPlayers.remove(event.getPlayer());
+    }
+
+    public void undisguise(Player caller) {
+        Get(caller).setDisguised(false);
+        Get(caller).setUsername(caller.getName());
+    }
+    public void disguise(Player caller, String name) {
+        Get(caller).setDisguised(true);
+        Get(caller).setUsername(name);
+        _DisguisedPlayers.put(name, caller);
+    }
+    public Player getDisguisedPlayer(String disguisedName) {
+        if(_DisguisedPlayers.containsKey(disguisedName)) {
+            return _DisguisedPlayers.get(disguisedName);
+        }
+        return null;
     }
 }

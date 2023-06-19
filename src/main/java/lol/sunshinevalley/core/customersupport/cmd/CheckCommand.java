@@ -17,7 +17,7 @@ public class CheckCommand extends CloudCommand {
     CoreClientManager clientManager;
 
     public CheckCommand(CustomerSupport support, CoreClientManager clientManager) {
-        super(new String[]{"check", "checkuser", "checkplayer", "purchasehistory"}, PermissionGroup.SUPPORT);
+        super(new String[]{"check", "checkuser", "checkplayer", "purchasehistory"}, "Display all packages a user has purchased", PermissionGroup.SUPPORT);
         this.clientManager = clientManager;
         this.support = support;
     }
@@ -25,7 +25,7 @@ public class CheckCommand extends CloudCommand {
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length == 0) {
-            player.sendMessage("§9/check <OfflinePlayer> §7Display all packages a user has purchased §9" + getGroup().getName());
+            sendHelp(player);
         } else {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
             // First lets make sure the account has logged into the server ever before, because we dont want to check someone that hasnt

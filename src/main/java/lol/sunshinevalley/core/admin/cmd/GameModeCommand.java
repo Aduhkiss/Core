@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class GameModeCommand extends CloudCommand {
 
-    public GameModeCommand() { super(new String[]{"gm"}, PermissionGroup.ADMIN); }
+    public GameModeCommand() { super(new String[]{"gm"}, "Change between CREATIVE and SURVIVAL", PermissionGroup.ADMIN); }
 
     @Override
     public void Execute(Player player, String[] args) {

@@ -30,6 +30,7 @@ public enum PermissionGroup {
     ADMIN("Admin", "admin", ChatColor.DARK_RED, 26),
     DEVELOPER("Developer", "dev", ChatColor.GOLD, 27),
     MANAGER("Manager", "manager", ChatColor.DARK_RED, 30),
+    LEADER("Leader", "lt", ChatColor.DARK_RED, 30),
     OWNER("Owner", "owner", ChatColor.DARK_RED, 100);
 
     String name;
