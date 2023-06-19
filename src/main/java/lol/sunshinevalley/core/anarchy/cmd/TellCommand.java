@@ -12,7 +12,7 @@ public class TellCommand extends CloudCommand {
     CoreClientManager clientManager;
 
     public TellCommand(CoreClientManager clientManager) {
-        super(new String[]{"tell", "whisper"}, "Privately message another user on the server", PermissionGroup.PLAYER);
+        super(new String[]{"tell", "whisper", "message", "msg"}, "Privately message another user on the server", PermissionGroup.PLAYER);
         this.clientManager = clientManager;
     }
 
@@ -24,13 +24,12 @@ public class TellCommand extends CloudCommand {
             CoreClient ME = clientManager.Get(player);
             String typedUsername = args[0];
             // THIS IS THE ACTUAL TARGET OF WHOS GETTING THE MESSAGE!!!
-            Player target = null;
             String message = StringUtils.combine(args, 1);
 
             // First lets check to see if this user is actually logged into the server
             Player tar = Bukkit.getPlayer(typedUsername);
             if(tar != null) {
-                target.sendMessage("§dFrom " + ME.getUsername() + ": " + message);
+                tar.sendMessage("§dFrom " + ME.getUsername() + ": " + message);
                 player.sendMessage("§dTo " + tar.getName() + ": " + message);
                 return;
             } else {

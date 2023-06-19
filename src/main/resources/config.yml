@@ -2,6 +2,12 @@ serverstatus:
   name: Lobby-1
   website: "www.example.com"
 
+elytrafly:
+  vdouble: 2.00
+  sendspeed: false
+  sendmessage: true
+  tp: true
+
 database:
   host: "10.0.0.114"
   username: "minecraft"

@@ -9,6 +9,11 @@ import lol.sunshinevalley.core.chat.cmd.BroadcastCommand;
 import lol.sunshinevalley.core.chat.cmd.MessageAdminCommand;
 import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -37,11 +42,23 @@ public class Chat extends MiniPlugin {
         // Disable our chat filter lmao
         String message = event.getMessage();
         //String message = BasicFilter.filterMessage(event.getMessage());
+        CoreClient ME = null;
+        if(clientManager.Get(event.getPlayer()).isDisguised()) {
+
+        } else {
+            ME = clientManager.Get(event.getPlayer());
+        }
 
         for(Player pl : Bukkit.getOnlinePlayers()) {
             //pl.sendMessage(prefix + " §e" + username + "§f: " + message);
             // Remove prefixes from chat as they're unneeded
-            pl.sendMessage("<" + "§f" + username + "> " + message);
+
+            //pl.sendMessage("<" + "§f" + username + "> " + message);
+            TextComponent mainMessage = new TextComponent("<" + username + "> " + message);
+            mainMessage.setColor(ChatColor.WHITE);
+            mainMessage.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to send message").create()));
+            mainMessage.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + username + " "));
+            pl.spigot().sendMessage(mainMessage);
         }
 
         return;
