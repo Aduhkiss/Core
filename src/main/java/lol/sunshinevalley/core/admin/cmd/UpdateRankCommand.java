@@ -4,6 +4,7 @@ import lol.sunshinevalley.core.Core;
 import lol.sunshinevalley.core.account.CoreClientManager;
 import lol.sunshinevalley.core.common.CloudCommand;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.util.F;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -32,12 +33,12 @@ public class UpdateRankCommand extends CloudCommand {
             try {
                 rank = PermissionGroup.valueOf(args[1]);
             } catch(IllegalArgumentException ex) {
-                player.sendMessage("§c§lInvalid Rank!");
+                player.sendMessage(F.main(clientManager.getName(), "§c§lInvalid Rank!"));
                 return;
             }
             try {
                 if(!clientManager.Exists(target)) {
-                    player.sendMessage("§c§lInvalid Player!");
+                    player.sendMessage(F.main(clientManager.getName(), "§c§lInvalid Player!"));
                     return;
                 } else {
                     new BukkitRunnable() {
@@ -45,7 +46,7 @@ public class UpdateRankCommand extends CloudCommand {
                         public void run() {
                             try {
                                 clientManager.updateRank(rank, target);
-                                player.sendMessage("§eYou have updated " + target.getName() + "'s rank to " + rank.getPrefixForChat() + "§e!");
+                                player.sendMessage(F.main(clientManager.getName(), "§7You have updated " + target.getName() + "'s rank to " + rank.getName() + "§7!"));
                             } catch (SQLException e) {
                                 player.sendMessage("§cAn internal network error occured while trying to update ranks! Please try again later.");
                             }

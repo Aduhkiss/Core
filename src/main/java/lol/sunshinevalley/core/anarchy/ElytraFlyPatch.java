@@ -2,12 +2,15 @@ package lol.sunshinevalley.core.anarchy;
 
 import lol.sunshinevalley.core.Core;
 import lol.sunshinevalley.core.MiniPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ElytraFlyPatch extends MiniPlugin {
 
@@ -27,6 +30,26 @@ public class ElytraFlyPatch extends MiniPlugin {
 
     public ElytraFlyPatch() {
         super("Elytra Fly Patch");
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void elytraLagCheck(PlayerMoveEvent event) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                double TPS = Bukkit.getTPS()[0];
+                Player p = event.getPlayer();
+                if(p.isGliding()) {
+                    // Keep tabs on the TPS
+                    if(TPS <= 10.00) {
+                        ItemStack copy = p.getEquipment().getChestplate();
+                        p.getEquipment().getChestplate().subtract();
+                        p.getWorld().dropItem(p.getLocation(), copy);
+                        p.sendMessage("§cThe server is running below 10 ticks per second. Elytras are disabled.");
+                    }
+                }
+            }
+        }.runTaskAsynchronously(Core.getCore());
     }
 
     @EventHandler(priority = EventPriority.NORMAL)

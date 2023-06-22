@@ -5,6 +5,7 @@ import lol.sunshinevalley.core.account.CoreClientManager;
 import lol.sunshinevalley.core.common.CloudCommand;
 import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.util.F;
 import lol.sunshinevalley.core.util.StringUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -56,7 +57,7 @@ public class CommandCenter extends MiniPlugin {
                 // Verify they have ADMIN
                 PermissionGroup required = PermissionGroup.OWNER;
                 if(!client.getRank().Has(required)) {
-                    event.getPlayer().sendMessage("§7This requires permission rank [§9" + required.toString() + "§7]!");
+                    event.getPlayer().sendMessage(F.main(getName(), "§7This requires permission rank [§9" + required.toString() + "§7]!"));
                     event.setCancelled(true);
                     return;
                 }
@@ -70,7 +71,7 @@ public class CommandCenter extends MiniPlugin {
                         String[] moddedArray = Arrays.copyOfRange(StringUtils.toArray(event.getMessage()), 1, StringUtils.toArray(event.getMessage()).length);
                         cmd.Execute(event.getPlayer(), moddedArray);
                     } else {
-                        event.getPlayer().sendMessage("§7This requires permission rank [§9" + cmd.getGroup().toString() + "§7]!");
+                        event.getPlayer().sendMessage(F.main(getName(), "§7This requires permission rank [§9" + cmd.getGroup().toString() + "§7]!"));
                     }
                     event.setCancelled(true);
                 }

@@ -1,9 +1,15 @@
 serverstatus:
   name: Lobby-1
+  group: "Lobby"
   website: "www.example.com"
+  first-message: "§6Welcome to Leafed"
+
+tablist:
+  server-title: "§7§lLEAFED.CC"
+  message: "§61.30 update soon."
 
 elytrafly:
-  vdouble: 2.00
+  vdouble: 2.344
   sendspeed: false
   sendmessage: true
   tp: true

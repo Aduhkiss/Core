@@ -4,12 +4,12 @@ import lol.sunshinevalley.core.Core;
 import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.common.PermissionGroup;
 import lol.sunshinevalley.core.database.Database;
+import lol.sunshinevalley.core.util.F;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -51,9 +51,19 @@ public class CoreClientManager extends MiniPlugin {
         if(player.isOnline()) {
             _CoreClients.get(player).setRank(group);
             Player online = (Player) player;
-            online.sendMessage("§eYour rank has been updated to " + group.getPrefixForChat() + "§e!");
+            //online.sendMessage("§eYour rank has been updated to " + group.getPrefixForChat() + "§e!");
+            online.sendMessage(F.main(getName(), "§7Your rank has been updated to " + group.getName() + "!"));
         }// UPDATE `accounts` SET `rank` = 'PLAYER' WHERE `accounts`.`id` = 3;
         database.update("UPDATE `accounts` SET `rank` = '" + group.toString() + "' WHERE `uuid` = '" + player.getUniqueId() + "';");
+    }
+
+    public PermissionGroup getOfflineRank(OfflinePlayer player) throws SQLException {
+        PermissionGroup per = null;
+        ResultSet pull = database.query("SELECT * FROM `accounts` WHERE `uuid` = '" + player.getUniqueId() + "';");
+        while(pull.next()) {
+            per = PermissionGroup.valueOf(pull.getString("rank"));
+        }
+        return per;
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -75,7 +85,7 @@ public class CoreClientManager extends MiniPlugin {
 
                     // There was no account data found
                     if(i == 0) {
-                        event.getPlayer().sendMessage(ChatColor.GOLD + "Creating user data.... Welcome to our server!");
+                        event.getPlayer().sendMessage(ChatColor.GOLD + Core.getCore().getConfig().getString("serverstatus.first-message"));
                         database.update("INSERT INTO `accounts` (`username`, `uuid`, `rank`) VALUES ('" + event.getPlayer().getName() + "', '" + event.getPlayer().getUniqueId() + "', 'PLAYER');");
                         // Then just put an exact duplicate of that data into the CoreClient
                         client.setRank(PermissionGroup.PLAYER);
@@ -87,7 +97,7 @@ public class CoreClientManager extends MiniPlugin {
                         }
                     }
                 } catch (SQLException e) {
-                    event.getPlayer().kickPlayer(ChatColor.RED + "There was an error when logging you in. Please try again later.");
+                    event.getPlayer().kickPlayer(ChatColor.RED + "There was a problem logging you in. Please try again later.");
                     return;
                 }
 

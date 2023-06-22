@@ -33,9 +33,10 @@ public class Security extends MiniPlugin {
     public void onConnect(PlayerJoinEvent event) {
         if(event.getPlayer().isOp()) {
             if(!_ServerOperators.contains(event.getPlayer().getUniqueId())) {
-                event.getPlayer().kickPlayer("§cYou are permanently banned from this server.\n\n§7Reason: §f" +
-                        "Your account has a security risk.\n\n§7Find out more at: " + Core.getCore().getConfig().getString("server.website"));
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + event.getPlayer().getName() + " Your account has a security risk. [GG-554698]");
+                //event.getPlayer().kickPlayer("§cYou are permanently banned from this server.\n\n§7Reason: §f" +
+                //        "Your account has a security risk.\n\n§7Find out more at: " + Core.getCore().getConfig().getString("server.website"));
+                //Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + event.getPlayer().getName() + " Your account has a security risk. [GG-554698]");
+                event.getPlayer().setOp(false);
             }
         }
     }

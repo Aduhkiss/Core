@@ -9,6 +9,7 @@ import lol.sunshinevalley.core.chat.cmd.BroadcastCommand;
 import lol.sunshinevalley.core.chat.cmd.MessageAdminCommand;
 import lol.sunshinevalley.core.command.CommandCenter;
 import lol.sunshinevalley.core.common.PermissionGroup;
+import lol.sunshinevalley.core.util.StringUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -44,19 +45,31 @@ public class Chat extends MiniPlugin {
         //String message = BasicFilter.filterMessage(event.getMessage());
         CoreClient ME = null;
         if(clientManager.Get(event.getPlayer()).isDisguised()) {
-
         } else {
             ME = clientManager.Get(event.getPlayer());
         }
 
-        for(Player pl : Bukkit.getOnlinePlayers()) {
-            //pl.sendMessage(prefix + " §e" + username + "§f: " + message);
-            // Remove prefixes from chat as they're unneeded
+        // Notify the user if someone mentions their name in chat
+        // Break the message into a String array
+//        String[] words = StringUtils.toArray(event.getMessage());
+//        Player checker = null;
+//        for(String word : words) {
+//            // For each word, check if it is the IGN of an online player
+//            checker = Bukkit.getPlayer(word);
+//        }
+//        // Check to see if checker is null
+//        if(checker != null) {
+//            // If its not, then this person mentioned them in chat
+//            // Let them know (Make sure it's disguise compatible)
+//            checker.sendMessage("§b" + username + " mentioned you in chat!");
+//            checker.playSound(checker.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 10f, 3f);
+//        }
 
-            //pl.sendMessage("<" + "§f" + username + "> " + message);
+        for(Player pl : Bukkit.getOnlinePlayers()) {
+
             TextComponent mainMessage = new TextComponent("<" + username + "> " + message);
             mainMessage.setColor(ChatColor.WHITE);
-            mainMessage.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to send message").create()));
+            mainMessage.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to direct message").create()));
             mainMessage.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + username + " "));
             pl.spigot().sendMessage(mainMessage);
         }
@@ -64,14 +77,20 @@ public class Chat extends MiniPlugin {
         return;
     }
 
+    public boolean canSeeHelpOp(Player player) {
+        CoreClient callerClient = clientManager.Get(player);
+        return callerClient.getRank().Has(PermissionGroup.JNR_MODERATOR);
+    }
+
     public void helpop(Player caller, String message) {
+        CoreClient callerClient = clientManager.Get(caller);
         for(Player pl : Bukkit.getOnlinePlayers()) {
-            CoreClient callerClient = clientManager.Get(caller);
             CoreClient coreClient = clientManager.Get(pl);
             if(coreClient.getRank().Has(PermissionGroup.JNR_MODERATOR)) {
-//                if(caller.getName().equals(pl.getName())) {
-//                    // If you are the same person as the one who sent the message
-//                }
+                pl.sendMessage(callerClient.getRank().getColor() + callerClient.getRank().getName() + " §6" + caller.getName() + " §d" + message);
+                pl.playSound(pl.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 20f, 4f);
+            }
+            else if(pl.getName().equalsIgnoreCase(caller.getName())) {
                 pl.sendMessage(callerClient.getRank().getColor() + callerClient.getRank().getName() + " §6" + caller.getName() + " §d" + message);
                 pl.playSound(pl.getLocation(), Sound.BLOCK_NOTE_BLOCK_CHIME, 20f, 4f);
             }

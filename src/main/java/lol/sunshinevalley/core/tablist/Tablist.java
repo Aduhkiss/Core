@@ -20,13 +20,15 @@ public class Tablist extends MiniPlugin {
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     int count = Bukkit.getOnlinePlayers().size();
                     PermissionGroup rank = clientManager.Get(player).getRank();
+                    double tps = Bukkit.getTPS()[0];
+                    String tpss = String.valueOf(tps).substring(0, 5);
 
-                    String header = "§7§lLEAFED.CC\n\n§61.30 update soon.";
-                    String footer = "\n§e" + count + " players online -- My Rank: " + rank.getName();
+                    String header = Core.getCore().getConfig().getString("tablist.server-title") + "\n\n" + Core.getCore().getConfig().getString("tablist.message");
+                    String footer = "\n§eTPS: " + tpss + " -- " + count + " players online -- My Rank: " + rank.getName();
 
                     player.setPlayerListHeaderFooter("\n" + header + "\n", footer + "\n");
                 }
             }
-        }.runTaskTimerAsynchronously(Core.getCore(), 100, 100);
+        }.runTaskTimerAsynchronously(Core.getCore(), 20, 20);
     }
 }
