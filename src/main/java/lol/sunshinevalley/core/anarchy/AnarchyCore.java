@@ -5,7 +5,10 @@ import lol.sunshinevalley.core.MiniPlugin;
 import lol.sunshinevalley.core.account.CoreClientManager;
 import lol.sunshinevalley.core.anarchy.cmd.SpyCommand;
 import lol.sunshinevalley.core.anarchy.cmd.TellCommand;
+import lol.sunshinevalley.core.anarchy.util.IllegalChecker;
 import lol.sunshinevalley.core.command.CommandCenter;
+import lol.sunshinevalley.core.util.F;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,6 +16,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,18 @@ public class AnarchyCore extends MiniPlugin {
 
     @EventHandler
     public void checkForIllegals(InventoryOpenEvent event) {
+        Inventory inv = event.getInventory();
+        // Scan the whole inventory for illegals
+        for(ItemStack item : inv.getContents()) {
+            if(item != null) {
+                boolean flag = IllegalChecker.disallowedItem(item);
+                if(flag) {
+                    //TODO: Log any illegals in the database so we can pull and recover them in the future
+                    Bukkit.getLogger().info(F.main(getName(), "Removed illegal item: " + item.getType().toString()));
+                    inv.remove(item);
+                }
+            }
+        }
     }
 
 
