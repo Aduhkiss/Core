@@ -61,7 +61,7 @@ public enum PermissionGroup {
     }
 
     public String getPrefixForChat() {
-        return getColor() + "§l" + getPrefix().toUpperCase() + "";
+        return getColor() + "§l" + getPrefix().toUpperCase() + "§r";
     }
 
     public ChatColor getColor() {

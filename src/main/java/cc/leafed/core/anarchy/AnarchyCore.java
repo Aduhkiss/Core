@@ -2,6 +2,8 @@ package cc.leafed.core.anarchy;
 
 import cc.leafed.core.Core;
 import cc.leafed.core.MiniPlugin;
+import cc.leafed.core.anarchy.cmd.KillCommand;
+import cc.leafed.core.anarchy.cmd.StatsCommand;
 import cc.leafed.core.anarchy.cmd.TellCommand;
 import cc.leafed.core.command.CommandCenter;
 import cc.leafed.core.util.F;
@@ -33,10 +35,13 @@ public class AnarchyCore extends MiniPlugin {
         super("Anarchy Core");
         this.clientManager = clientManager;
 
+        commandCenter.addCommand(new TellCommand(clientManager));
+        commandCenter.addCommand(new SpyCommand(this));
+        commandCenter.addCommand(new KillCommand(clientManager));
+        commandCenter.addCommand(new StatsCommand());
+
         if(Core.getCore().getConfig().getString("serverstatus.group").equalsIgnoreCase("lobby")) {
             say("Server has been programmed as a LOBBY or HUB. Setting up...");
-            commandCenter.addCommand(new TellCommand(clientManager));
-            commandCenter.addCommand(new SpyCommand(this));
         }
         if(Core.getCore().getConfig().getString("serverstatus.group").equalsIgnoreCase("arcade")) {
             say("Server has been programmed as an ARCADE.");

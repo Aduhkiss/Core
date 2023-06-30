@@ -1,6 +1,9 @@
 package cc.leafed.core.account;
 
+import cc.leafed.core.Core;
 import cc.leafed.core.common.PermissionGroup;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,6 +21,7 @@ public class CoreClient {
     Player lastMessagedMe;
 
     PermissionGroup permissionGroup;
+    boolean isVanished;
 
     public CoreClient(Player player) {
         Bukkit.getLogger().info("Client Manager> Loading data for " + player.getName() + "...");
@@ -63,5 +67,21 @@ public class CoreClient {
     }
     public void setRank(PermissionGroup rank) {
         permissionGroup = rank;
+    }
+    public boolean isVanished() {
+        return isVanished;
+    }
+    public void setVanished(boolean f) {
+        this.isVanished = f;
+    }
+
+    /*
+    Send this CoreClient to a specified server on a BungeeCord network
+     */
+    public void send(String server) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Connect");
+        out.writeUTF(server);
+        player.sendPluginMessage(Core.getCore(), "BungeeCord", out.toByteArray());
     }
 }

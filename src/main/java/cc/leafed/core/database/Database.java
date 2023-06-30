@@ -23,7 +23,7 @@ public class Database extends MiniPlugin {
         try {
             Class.forName("com.mysql.jdbc.Driver");// TODO: Add a way to change the port at some point in time
             conn = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database,username,password);
-            say("Ready.");
+            //say("Ready.");
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }

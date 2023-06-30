@@ -2,11 +2,13 @@ package cc.leafed.core.tablist;
 
 import cc.leafed.core.Core;
 import cc.leafed.core.MiniPlugin;
+import cc.leafed.core.account.CoreClient;
 import cc.leafed.core.account.CoreClientManager;
 import cc.leafed.core.common.PermissionGroup;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Team;
 
 public class Tablist extends MiniPlugin {
     CoreClientManager clientManager;
@@ -29,6 +31,6 @@ public class Tablist extends MiniPlugin {
                     player.setPlayerListHeaderFooter("\n" + header + "\n", footer + "\n");
                 }
             }
-        }.runTaskTimerAsynchronously(Core.getCore(), 20, 20);
+        }.runTaskTimerAsynchronously(Core.getCore(), 20 * 5, 20);
     }
 }

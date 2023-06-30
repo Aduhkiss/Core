@@ -1,5 +1,6 @@
 package cc.leafed.core;
 
+import cc.leafed.core.account.cmd.VanishCommand;
 import cc.leafed.core.command.CommandCenter;
 import cc.leafed.core.database.Database;
 import cc.leafed.core.account.CoreClientManager;
@@ -9,8 +10,11 @@ import cc.leafed.core.chat.Chat;
 import cc.leafed.core.admin.AdminCore;
 import cc.leafed.core.customersupport.CustomerSupport;
 import cc.leafed.core.disguise.Disguise;
+import cc.leafed.core.portal.Portal;
 import cc.leafed.core.security.Security;
 import cc.leafed.core.tablist.Tablist;
+import cc.leafed.core.util.F;
+import cc.leafed.core.util.Finder;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +34,10 @@ public final class Core extends JavaPlugin {
         Database database = new Database();
         CoreClientManager clientManager = new CoreClientManager(database);
         CommandCenter commandCenter = new CommandCenter(clientManager);
+
+        // ugh i fucking hate this code
+        commandCenter.addCommand(new VanishCommand(clientManager));
+
         new AdminCore(commandCenter, clientManager, database);
         new Chat(clientManager, commandCenter);
         new CustomerSupport(commandCenter, clientManager, database);
@@ -39,9 +47,12 @@ public final class Core extends JavaPlugin {
         new Disguise(commandCenter, clientManager);
         new Tablist(clientManager);
         new ElytraFlyPatch();
+        Finder finder = new Finder(clientManager);
+
+        Portal portal = new Portal(commandCenter);
 
         long now = System.currentTimeMillis();
-        Bukkit.getLogger().info("The Cloudy Co> " + "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load.");
+        Bukkit.getLogger().info(F.main("The Cloudy Co", "Total Infrastructure took " + TimeUnit.MILLISECONDS.toSeconds(now - enable) + " seconds " + "(" + (now - enable) + " millis) " + "to load."));
     }
 
     @Override

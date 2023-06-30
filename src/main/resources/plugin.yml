@@ -1,6 +1,6 @@
 name: Core
 version: '${project.version}'
-main: lol.sunshinevalley.core.Core
+main: cc.leafed.core.Core
 api-version: 1.19
 authors: [ Aduhkiss ]
 description: Core plugin for our server

@@ -28,6 +28,11 @@ public class TellCommand extends CloudCommand {
 
             // First lets check to see if this user is actually logged into the server
             Player tar = Bukkit.getPlayer(typedUsername);
+            //TODO: fail the check if this player was found, but is vanished
+            if(clientManager.isVanished(tar)) {
+                player.sendMessage("§cThere is no player matching that username.");
+                return;
+            }
             if(tar != null) {
                 tar.sendMessage("§dFrom " + ME.getUsername() + ": " + message);
                 player.sendMessage("§dTo " + tar.getName() + ": " + message);
@@ -38,6 +43,11 @@ public class TellCommand extends CloudCommand {
                 Player disguisedPlayer = clientManager.getDisguisedPlayer(typedUsername);
                 if(disguisedPlayer != null) {
                     // Send the message but keep them hidden
+                    //TODO: fail the check if this player was found, but is vanished
+                    if(clientManager.isVanished(disguisedPlayer)) {
+                        player.sendMessage("§cThere is no player matching that username.");
+                        return;
+                    }
                     disguisedPlayer.sendMessage("§dFrom " + ME.getUsername() + ": " + message);
                     player.sendMessage("§dTo " + typedUsername + ": " + message);
                     return;

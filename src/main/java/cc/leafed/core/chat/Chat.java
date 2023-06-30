@@ -1,5 +1,6 @@
 package cc.leafed.core.chat;
 
+import cc.leafed.core.Core;
 import cc.leafed.core.MiniPlugin;
 import cc.leafed.core.account.CoreClient;
 import cc.leafed.core.account.CoreClientManager;
@@ -48,25 +49,17 @@ public class Chat extends MiniPlugin {
             ME = clientManager.Get(event.getPlayer());
         }
 
-        // Notify the user if someone mentions their name in chat
-        // Break the message into a String array
-//        String[] words = StringUtils.toArray(event.getMessage());
-//        Player checker = null;
-//        for(String word : words) {
-//            // For each word, check if it is the IGN of an online player
-//            checker = Bukkit.getPlayer(word);
-//        }
-//        // Check to see if checker is null
-//        if(checker != null) {
-//            // If its not, then this person mentioned them in chat
-//            // Let them know (Make sure it's disguise compatible)
-//            checker.sendMessage("§b" + username + " mentioned you in chat!");
-//            checker.playSound(checker.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 10f, 3f);
-//        }
+        // Pull message data from config
+        String configMessage = Core.getCore().getConfig().getString("chat.messages");
 
         for(Player pl : Bukkit.getOnlinePlayers()) {
 
-            TextComponent mainMessage = new TextComponent("<" + username + "> " + message);
+            configMessage = configMessage.replace("%username%", username);
+            configMessage = configMessage.replace("%message%", message);
+            configMessage = configMessage.replace("%message-filtered%", BasicFilter.filterMessage(message));
+            configMessage = configMessage.replace("%prefix%", prefix);
+
+            TextComponent mainMessage = new TextComponent(configMessage);
             mainMessage.setColor(ChatColor.WHITE);
             mainMessage.setHoverEvent( new HoverEvent( HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Click to direct message").create()));
             mainMessage.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/msg " + username + " "));
@@ -98,7 +91,7 @@ public class Chat extends MiniPlugin {
 
     public void helpopMessage(Player caller, Player target, String message) {
         CoreClient op = clientManager.Get(caller);
-        target.sendMessage("§6--> " + op.getRank().getColor() + op.getRank().getName() + " §6" + caller.getName() + " §d" + message);
-        caller.sendMessage("§6<-- " + op.getRank().getColor() + op.getRank().getName() + " §6" + caller.getName() + " §d" + message);
+        target.sendMessage("§6-> " + op.getRank().getColor() + op.getRank().getName() + " §6" + caller.getName() + " §d" + message);
+        caller.sendMessage("§6<- " + op.getRank().getColor() + op.getRank().getName() + " §6" + caller.getName() + " §d" + message);
     }
 }

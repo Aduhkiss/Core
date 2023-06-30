@@ -54,7 +54,7 @@ public class CommandCenter extends MiniPlugin {
         }
         for(String cmdd : _BlockedCommands) {
             if(event.getMessage().startsWith("/" + cmdd) || event.getMessage().contains(":")) {
-                // Verify they have ADMIN
+                // Verify they have OWNER
                 PermissionGroup required = PermissionGroup.OWNER;
                 if(!client.getRank().Has(required)) {
                     event.getPlayer().sendMessage(F.main(getName(), "§7This requires permission rank [§9" + required.toString() + "§7]!"));

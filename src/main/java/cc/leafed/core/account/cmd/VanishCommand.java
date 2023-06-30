@@ -1,5 +1,6 @@
-package cc.leafed.core.admin.cmd;
+package cc.leafed.core.account.cmd;
 
+import cc.leafed.core.account.CoreClientManager;
 import cc.leafed.core.common.CloudCommand;
 import cc.leafed.core.common.PermissionGroup;
 import cc.leafed.core.admin.AdminCore;
@@ -7,21 +8,21 @@ import org.bukkit.entity.Player;
 
 public class VanishCommand extends CloudCommand {
 
-    AdminCore adminCore;
+    CoreClientManager clientManager;
 
-    public VanishCommand(AdminCore adminCore) {
-        super(new String[]{"vanish", "v", "incognito"}, "Appear offline for normal users", PermissionGroup.MODERATOR);
-        this.adminCore = adminCore;
+    public VanishCommand(CoreClientManager clientManager) {
+        super(new String[]{"vanish", "incognito"}, "Appear offline for normal users", PermissionGroup.MODERATOR);
+        this.clientManager = clientManager;
     }
 
     @Override
     public void Execute(Player player, String[] args) {
         if(args.length == 0) {
-            if(adminCore.isVanished(player)) {
-                adminCore.unvanish(player);
+            if(clientManager.isVanished(player)) {
+                clientManager.unvanish(player);
                 player.sendMessage("§7You are no longer incognito.");
             } else {
-                adminCore.vanish(player);
+                clientManager.vanish(player);
                 player.sendMessage("§7You are now incognito. You are now invisible to normal players.");
             }
         } else {

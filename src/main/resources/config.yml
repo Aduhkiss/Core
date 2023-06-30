@@ -8,6 +8,13 @@ tablist:
   server-title: "§7§lLEAFED.CC"
   message: "§61.30 update soon."
 
+# %username% - Get the current players username
+# %message% - Get the message that the user said
+# %prefix% - Get the prefix of the users rank
+# %message-filtered% - Get the message but after it's been filtered
+chat:
+  messages: "<%username%> %message%"
+
 elytrafly:
   vdouble: 2.344
   sendspeed: false
